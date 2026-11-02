@@ -1,0 +1,74 @@
+{
+    "name": "crm.corporate-mail",
+    "version": "1.0.14",
+    "vendor": "crm",
+    "author": "Anton Barinov",
+    "author_url": "https://github.com/Anton-Barinov",
+    "title": "Corporate Mail Integration",
+    "description": "Общие почтовые ящики команды, IMAP/SMTP интеграция и обработка писем в CRM",
+    "core_version": ">=1.0.0",
+    "license": "MIT",
+    "category": "integration",
+    "dependencies": [],
+    "require_permissions": [
+        "settings.view",
+        "settings.edit",
+        "corporate_mail.read"
+    ],
+    "config_defaults": {
+        "use_env_smtp": true,
+        "default_mailbox_name": "Helpdesk",
+        "default_mailbox_email": "",
+        "smtp_host": "",
+        "smtp_port": 587,
+        "smtp_username": "",
+        "smtp_password": "",
+        "smtp_encryption": "tls",
+        "imap_host": "",
+        "imap_port": 993,
+        "imap_username": "",
+        "imap_password": "",
+        "imap_encryption": "ssl",
+        "auto_sync_enabled": true,
+        "sync_interval_minutes": 5
+    },
+    "service_provider": "Module\\Crm\\CorporateMail\\CorporateMailServiceProvider",
+    "migrations": "api/migrations",
+    "api_routes": "api/config/routes.php",
+    "web_routes": "web/config/routes.php",
+    "menu_items": [
+        {
+            "id": "corporate-mail",
+            "title": "Корпоративная почта",
+            "route": "module-corporate-mail",
+            "icon": "envelope",
+            "permission": "corporate_mail.read"
+        }
+    ],
+    "assets": {
+        "css": [
+            "web/assets/css/corporate-mail.css"
+        ],
+        "js_routes": {
+            "module-corporate-mail": "web/assets/js/corporate-mail.js"
+        }
+    },
+    "mcp_tools": [
+        {
+            "name": "mail_list_mailboxes",
+            "description": "List configured corporate mailboxes and their sync statuses",
+            "handler": "Module\\Crm\\CorporateMail\\Mcp\\ListMailboxesTool",
+            "permissions": [
+                "settings.view"
+            ],
+            "mode": "all",
+            "workspace_required": true,
+            "input_schema": {
+                "type": "object",
+                "properties": [],
+                "additionalProperties": false
+            }
+        }
+    ],
+    "signature": "5ec86b742e431d3e9902c8ccd9d7f0e83af088708ab007194ee9473a530af88c"
+}
